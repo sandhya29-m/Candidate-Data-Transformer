@@ -1,0 +1,6 @@
+candidate_id,name,email,phone,current_company,current_title,total_experience,current_location,github_url,recruiter_notes
+C001,Alice Johnson,alice.johnson@gmail.com,+1-415-555-1234,Google,Software Engineer,4,"San Francisco, USA",https://github.com/alicejohnson,Strong backend developer
+C002,Bob Smith,bob.smith@gmail.com,+91-9876543210,Amazon,SDE II,5,"Bangalore, India",https://github.com/bobsmith,Interested in AI roles
+C003,Charlie Brown,charlie.brown@gmail.com,+44-7700900112,Microsoft,Full Stack Developer,3,"London, UK",https://github.com/charliebrown,Needs relocation support
+C004,Diana Prince,diana.prince@gmail.com,+61-412345678,Atlassian,Software Engineer,2,"Sydney, Australia",,No GitHub profile provided
+C005,Ethan Davis,ethan.davis@gmail.com,+91-9123456789,TCS,Java Developer,1,"Chennai, India",https://github.com/ethandavis,Fresher with good Java skills

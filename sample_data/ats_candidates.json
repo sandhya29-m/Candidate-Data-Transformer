@@ -1,0 +1,102 @@
+[
+  {
+    "candidate_id": "C001",
+    "candidateName": "Alice Marie Johnson",
+    "mail": "alice.johnson@gmail.com",
+    "phoneNumber": "+14155551234",
+    "headline": "Backend Software Engineer",
+    "skills": [
+      "Python",
+      "Java",
+      "Docker",
+      "Kubernetes"
+    ],
+    "experience": [
+      {
+        "company": "Google",
+        "title": "Backend Engineer",
+        "start_date": "2021-06"
+      }
+    ]
+  },
+  {
+    "candidate_id": "C002",
+    "candidateName": "Robert Smith",
+    "mail": "bob.smith@gmail.com",
+    "phoneNumber": "+919876543210",
+    "headline": "Senior Software Development Engineer",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "AWS",
+      "SQL"
+    ],
+    "experience": [
+      {
+        "company": "Amazon",
+        "title": "SDE II",
+        "start_date": "2020-08"
+      }
+    ]
+  },
+  {
+    "candidate_id": "C003",
+    "candidateName": "Charlie Brown",
+    "mail": "charlie.brown@gmail.com",
+    "phoneNumber": "+447700900112",
+    "headline": "Full Stack Engineer",
+    "skills": [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "TypeScript"
+    ],
+    "experience": [
+      {
+        "company": "Microsoft",
+        "title": "Full Stack Engineer",
+        "start_date": "2022-01"
+      }
+    ]
+  },
+  {
+    "candidate_id": "C004",
+    "candidateName": "Diana Prince",
+    "mail": "diana.prince@gmail.com",
+    "phoneNumber": "+61412345678",
+    "headline": "Python Backend Engineer",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "experience": [
+      {
+        "company": "Atlassian",
+        "title": "Software Engineer",
+        "start_date": "2023-01"
+      }
+    ]
+  },
+  {
+    "candidate_id": "C005",
+    "candidateName": "Ethan Davis",
+    "mail": "ethan.davis@gmail.com",
+    "phoneNumber": "+919123456789",
+    "headline": "Backend Java Developer",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "MySQL",
+      "Git"
+    ],
+    "experience": [
+      {
+        "company": "TCS",
+        "title": "Java Developer",
+        "start_date": "2024-01"
+      }
+    ]
+  }
+]
