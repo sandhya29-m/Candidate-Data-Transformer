@@ -1,1 +1,0 @@
-"""Candidate Data Transformer package."""
