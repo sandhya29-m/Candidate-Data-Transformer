@@ -1,8 +1,10 @@
 # Candidate Data Transformer
 
-A production-oriented Candidate Data Transformer designed for recruiter and HR workflows. The application ingests candidate information from multiple structured and unstructured sources, normalizes the data, detects duplicate candidates, merges records into canonical profiles, calculates confidence scores, tracks provenance, validates the output, and presents the results through a Streamlit-based Applicant Tracking System (ATS) dashboard.
+A production-oriented Candidate Data Transformer designed for recruiter and HR workflows.
 
----
+The application ingests candidate information from multiple structured and unstructured sources, normalizes the data, detects duplicate candidates, merges records into canonical profiles, calculates confidence scores, tracks provenance, validates the output, and presents the results through a Streamlit-based Applicant Tracking System (ATS) dashboard.
+
+The project demonstrates how modern recruitment systems can consolidate fragmented candidate information into a single, reliable candidate profile while maintaining explainability and deterministic processing.
 
 ## Features
 
@@ -14,13 +16,11 @@ A production-oriented Candidate Data Transformer designed for recruiter and HR w
 - Candidate matching and duplicate detection
 - Canonical candidate profile generation
 - Confidence score calculation
-- Provenance tracking
+- Field-level provenance tracking
 - Configurable output projection
 - Output validation
 - ATS-style Streamlit dashboard
 - Download canonical candidate profiles as JSON
-
----
 
 ## Technology Stack
 
@@ -34,14 +34,12 @@ A production-oriented Candidate Data Transformer designed for recruiter and HR w
 | Candidate Matching | RapidFuzz |
 | Phone Validation | phonenumbers |
 | HTTP Client | requests |
-| AI | Groq API (Llama 3.3 70B) |
+| AI | Groq API (Llama 3.3 70B Versatile) |
 | Testing | pytest |
 
----
+## Architecture
 
-# Architecture
-
-The project follows a modular pipeline where every stage has a single responsibility.
+The project follows a modular pipeline where each stage has a single responsibility.
 
 ```text
 Recruiter CSV
@@ -80,23 +78,19 @@ Projection Layer
 Validation
         │
         ▼
-Streamlit Dashboard
+Streamlit ATS Dashboard
 ```
-
----
 
 ## Design Principles
 
-- Modular architecture
-- SOLID principles
-- Deterministic matching and merging
+- Modular and maintainable architecture
+- Separation of concerns
+- Deterministic candidate matching and merging
 - Explainable confidence calculation
 - Field-level provenance tracking
-- AI enrichment is optional
-- Graceful failure handling
-- Easily extensible
-
----
+- Optional AI enrichment
+- Graceful error handling
+- Easily extensible components
 
 ## Project Structure
 
@@ -128,273 +122,327 @@ Candidate-Data-Transformer/
 ├── pyproject.toml
 └── .gitignore
 ```
-
----
-
-# Installation
+## Installation
 
 Clone the repository.
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/<your-username>/Candidate-Data-Transformer.git
 cd Candidate-Data-Transformer
 ```
 
-Install dependencies.
+Install the required dependencies.
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+Alternatively, if using editable mode:
 
-# Running the Application
+```bash
+pip install -e .
+pip install -e ".[dev]"
+```
 
-Start the Streamlit application.
+## Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+GITHUB_TOKEN=your_github_personal_access_token
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=llama-3.3-70b-versatile
+```
+
+### GitHub Token
+
+A GitHub Personal Access Token is optional but recommended.
+
+Authenticated requests increase the GitHub API rate limit and improve reliability when enriching candidate profiles.
+
+If no token is provided, the application automatically falls back to unauthenticated requests using GitHub's public API.
+
+### Groq API
+
+The Groq API is used for optional AI-powered candidate enrichment.
+
+If the API key is unavailable or the AI service cannot be reached, the application continues using the deterministic pipeline without interruption.
+
+> **Note**
+>
+> Never commit your `.env` file to GitHub.
+
+## Running the Application
+
+Launch the Streamlit application.
 
 ```bash
 streamlit run src/candidate_transformer/app/streamlit_app.py
 ```
 
-Open the application in your browser.
+Once the server starts, open the application in your browser.
 
 ```
 http://localhost:8501
 ```
 
----
+## Supported Input Sources
 
-# Supported Input Sources
+The application accepts both structured and unstructured candidate data.
 
-## Structured Sources
+### Structured Sources
 
 - Recruiter CSV
 - ATS JSON
 
-## Unstructured Sources
+### Unstructured Sources
 
 - Resume (PDF)
 - Resume (DOCX)
 - GitHub Profile URLs
 
-## Optional
+### Optional Configuration
 
 - Config JSON
 
----
+The application automatically combines all available sources into a unified candidate profile.
 
-# Candidate Processing Pipeline
+## Candidate Processing Pipeline
 
-The application processes candidate information through the following stages.
+Every candidate record passes through the following deterministic processing pipeline.
 
-1. Read Input Sources
-2. Parse Candidate Data
-3. Optional AI Enrichment
-4. Normalize Candidate Information
-5. Detect Duplicate Candidates
-6. Merge Records
-7. Generate Canonical Candidate
-8. Calculate Confidence Scores
-9. Build Provenance
-10. Validate Output
-11. Render ATS Dashboard
+```text
+Read Input Sources
+        │
+        ▼
+Parse Candidate Data
+        │
+        ▼
+Optional AI Input Enrichment
+        │
+        ▼
+Normalization
+        │
+        ▼
+Candidate Matching
+        │
+        ▼
+Merge Engine
+        │
+        ▼
+Confidence Calculation
+        │
+        ▼
+Provenance Tracking
+        │
+        ▼
+Canonical Candidate Profile
+        │
+        ▼
+Projection Layer
+        │
+        ▼
+Validation
+        │
+        ▼
+ATS Dashboard
+```
 
----
+Each stage is isolated, making the application modular, maintainable, and easy to test.
 
-# Candidate Matching Strategy
+## Candidate Processing Pipeline
 
-Candidates are matched using deterministic rules.
+Every candidate record passes through the following deterministic processing pipeline.
 
-Priority order:
+```text
+Read Input Sources
+        │
+        ▼
+Parse Candidate Data
+        │
+        ▼
+Optional AI Input Enrichment
+        │
+        ▼
+Normalization
+        │
+        ▼
+Candidate Matching
+        │
+        ▼
+Merge Engine
+        │
+        ▼
+Confidence Calculation
+        │
+        ▼
+Provenance Tracking
+        │
+        ▼
+Canonical Candidate Profile
+        │
+        ▼
+Projection Layer
+        │
+        ▼
+Validation
+        │
+        ▼
+ATS Dashboard
+```
+
+Each stage is isolated, making the application modular, maintainable, and easy to test.
+
+
+## Candidate Matching Strategy
+
+The application consolidates records belonging to the same candidate by combining deterministic matching with fuzzy name matching.
+
+Matching priority:
 
 1. Email Address
 2. Phone Number
-3. GitHub URL
+3. GitHub Profile URL
 4. Resume Email
-5. Resume Phone
-6. Name Similarity (RapidFuzz)
-7. Name + Company
-8. Name + Skills
+5. Resume Phone Number
+6. Name Similarity using RapidFuzz
+7. Name and Current Company
+8. Name and Skills
 
-Every real-world candidate results in exactly one canonical profile.
+Deterministic identifiers are always preferred over fuzzy matching to minimize false positives.
 
----
+Once duplicate records are identified, they are merged into a single canonical candidate profile.
 
-# GitHub Integration
+## Merge Strategy
+
+After duplicate candidates are identified, the Merge Engine creates a canonical candidate profile.
+
+Field conflicts are resolved using configurable source priorities.
+
+Example source priority:
+
+1. Resume
+2. GitHub
+3. ATS JSON
+4. Recruiter CSV
+
+Every selected field records its origin through provenance metadata, allowing recruiters to understand where each value came from.
+
+## GitHub Integration
+
+The application enriches candidate profiles using the GitHub REST API.
+
+GitHub profile URLs may be provided through:
+
+- Recruiter CSV
+- GitHub URL input in the dashboard
+- Resume (when detected)
+
+For each valid profile, the application retrieves:
+
+- Public profile information
+- Repository names
+- Repository count
+- Programming languages
+- GitHub bio
+- Public profile metadata
 
 GitHub enrichment is optional.
 
-The application accepts GitHub profile URLs from:
+If a valid `GITHUB_TOKEN` is configured, authenticated requests are used to increase the API rate limit.
 
-- Recruiter CSV
-- GitHub URL input
-- Resume (if detected)
+If no token is available, the application falls back to unauthenticated requests.
 
-The application retrieves:
+GitHub enrichment is skipped automatically when:
 
-- Profile information
-- Repository list
-- Repository count
-- Programming languages
-- Public profile metadata
+- No GitHub URL is available
+- The profile does not exist
+- Authentication fails
+- API rate limits are exceeded
 
-GitHub API calls are skipped automatically when no valid GitHub URL is available.
+Failures during GitHub enrichment never stop the candidate transformation pipeline.
 
----
+## Resume Processing
 
-# Resume Processing
-
-Supported formats
+The application supports parsing resumes in:
 
 - PDF
 - DOCX
 
-The parser extracts:
+The parser extracts candidate information such as:
 
 - Personal Information
-- Contact Information
+- Contact Details
 - Skills
 - Experience
 - Education
 - Projects
 - Certifications
-- Links
+- Professional Links
 - Resume Summary
 
-Resume parsing failures never stop the pipeline.
+Each uploaded resume is matched to an existing candidate using:
 
----
+1. Resume filename
+2. Email address
+3. Phone number
+4. Candidate name (RapidFuzz)
 
-# AI Input Enrichment
+If no existing candidate is matched, the resume becomes a new candidate record and continues through the standard processing pipeline.
 
-AI enrichment is optional.
+Resume parsing failures are handled gracefully and never interrupt processing of other candidates.
 
-When enabled, the application sends parsed candidate records to the Groq API for enrichment.
+## AI Input Enrichment
 
-The AI is responsible for:
+AI enrichment is an optional preprocessing stage powered by the Groq API using the Llama 3.3 70B Versatile model.
+
+The AI enriches parsed candidate records by:
 
 - Standardizing skills
-- Resume understanding
-- GitHub bio interpretation
-- Candidate summary generation
-- Suggested roles
-- Strength identification
-- Missing information detection
+- Understanding resume content
+- Interpreting GitHub bios
+- Generating professional summaries
+- Identifying strengths
+- Suggesting suitable job roles
+- Highlighting missing candidate information
 
-The AI does **not** perform:
+The AI **does not** perform:
 
 - Candidate matching
 - Duplicate detection
 - Merge decisions
 - Confidence calculation
-- Validation
-- Provenance tracking
+- Provenance generation
+- Output validation
 
-If the AI is unavailable, the deterministic pipeline continues without interruption.
+These stages remain fully deterministic.
 
----
+If AI enrichment is disabled or the AI service is unavailable, the application continues with the deterministic pipeline without interruption.
 
-# ATS Dashboard
+## Confidence Scoring
 
-The dashboard provides two main views.
+Each canonical candidate profile is assigned an overall confidence score.
 
-## Candidate Summary
+The confidence score considers:
 
-- Candidate list
-- Search
-- Sorting
-- Filtering
-- Confidence
-- Validation Status
+- Number of supporting data sources
+- Agreement between sources
+- Data completeness
+- Validation results
 
-## Candidate Details
+Higher confidence indicates greater reliability of the merged candidate profile.
 
-- Personal Information
-- Experience
-- Education
-- Skills
-- Projects
-- Certifications
-- Resume Summary
-- Links
-- AI Insights
-- Confidence
-- Provenance
-- Validation Results
-- Raw JSON
-- Download Canonical Profile
+Confidence calculation is deterministic and independent of AI enrichment.
 
----
+## Provenance Tracking
 
-# Sample Data
+Every field in the canonical candidate profile records its source.
 
-The repository includes sample input files under:
+Example:
 
-```text
-sample_data/
-├── recruiter_candidates.csv
-├── ats_candidates.json
-├── config.json
-└── resumes/
-```
+- Name → Resume
+- Skills → GitHub
+- Phone Number → Recruiter CSV
+- Experience → ATS JSON
 
-These files can be used to test the application.
-
----
-
-# Testing
-
-Run all unit tests.
-
-```bash
-pytest tests/unit
-```
-
-The project includes tests for:
-
-- Recruiter CSV Parser
-- ATS JSON Parser
-- Resume Parser
-- GitHub Integration
-- Candidate Matching
-- Merge Engine
-- Confidence Calculator
-- Provenance Builder
-- Projection Engine
-- Validation
-- AI Enrichment
-- End-to-End Pipeline
-
----
-
-# Configuration
-
-Configuration is supported through Config JSON.
-
-Examples include:
-
-- Output field selection
-- Field renaming
-- Source priority
-- Missing value strategy
-- AI enable/disable
-
----
-
-# Future Improvements
-
-- LinkedIn API integration
-- OCR support for scanned resumes
-- Multi-language resume parsing
-- Job Description matching
-- ATS vendor-specific adapters
-- Asynchronous GitHub enrichment
-- Persistent candidate storage
-- Dashboard analytics
-- Export to ATS-specific formats
-
----
-
-# Author
-
-Sandhya M
+This allows recruiters to understand the origin of every piece of information and improves explainability.
