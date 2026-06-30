@@ -207,48 +207,6 @@ The application accepts both structured and unstructured candidate data.
 
 The application automatically combines all available sources into a unified candidate profile.
 
-## Candidate Processing Pipeline
-
-Every candidate record passes through the following deterministic processing pipeline.
-
-```text
-Read Input Sources
-        │
-        ▼
-Parse Candidate Data
-        │
-        ▼
-Optional AI Input Enrichment
-        │
-        ▼
-Normalization
-        │
-        ▼
-Candidate Matching
-        │
-        ▼
-Merge Engine
-        │
-        ▼
-Confidence Calculation
-        │
-        ▼
-Provenance Tracking
-        │
-        ▼
-Canonical Candidate Profile
-        │
-        ▼
-Projection Layer
-        │
-        ▼
-Validation
-        │
-        ▼
-ATS Dashboard
-```
-
-Each stage is isolated, making the application modular, maintainable, and easy to test.
 
 ## Candidate Processing Pipeline
 
